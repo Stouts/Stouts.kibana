@@ -21,7 +21,7 @@ kibana_panel_names: [
 kibana_proxy_nginx: yes                    # Serve kibana with Nginx
 kibana_proxy_port: 80
 kibana_proxy_hostname: "{{inventory_hostname}}"  # Set hostname
-kibana_proxy_log: /var/log/kibana.log
+kibana_proxy_log: /var/log/nginx/kibana.log
 kibana_proxy_auth: no                      # Enable Basic HTTP Authentication
 kibana_proxy_auth_users: []                # Setup users for the HTTP Auth
                                             # kibana_proxy_auth_users:

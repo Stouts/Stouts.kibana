@@ -1,7 +1,9 @@
 Stouts.kibana
 ==============
 
-[![Build Status](https://travis-ci.org/Stouts/Stouts.kibana.png)](https://travis-ci.org/Stouts/Stouts.kibana)
+[![Build Status](http://img.shields.io/travis/Stouts/Stouts.kibana.svg?style=flat-square)](https://travis-ci.org/Stouts/Stouts.kibana)
+[![Galaxy](http://img.shields.io/badge/galaxy-Stouts.kibana-blue.svg?style=flat-square)](https://galaxy.kibana.com/list#/roles/1986)
+[![Tag](http://img.shields.io/github/tag/Stouts/Stouts.kibana.svg?style=flat-square)]()
 
 Ansible role which manage [Kibana](http://www.elasticsearch.org/overview/kibana/)
 
@@ -41,7 +43,7 @@ kibana_panel_names: [
 kibana_proxy_nginx: yes                    # Serve kibana with Nginx
 kibana_proxy_port: 80
 kibana_proxy_hostname: "{{inventory_hostname}}"  # Set hostname
-kibana_proxy_log: /var/log/kibana.log
+kibana_proxy_log: /var/log/nginx/kibana.log
 kibana_proxy_auth: no                      # Enable Basic HTTP Authentication
 kibana_proxy_auth_users: []                # Setup users for the HTTP Auth
                                             # kibana_proxy_auth_users:
