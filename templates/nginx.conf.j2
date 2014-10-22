@@ -8,8 +8,8 @@ server {
 {% endif %}
 
 {% if kibana_proxy_auth %}
-        auth_basic "Restricted";
-        auth_basic_user_file {{kibana_home}}/.htpasswd;
+    auth_basic "Restricted";
+    auth_basic_user_file {{kibana_home}}/.htpasswd;
 {% endif %}
 
     location /robots.txt {
