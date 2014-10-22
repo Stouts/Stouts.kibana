@@ -1,0 +1,5 @@
+---
+
+- include: kibana.yml
+  when: kibana_enabled
+  tags: [kibana]

@@ -1,0 +1,7 @@
+---
+
+- include: install.yml
+  tags: [kibana, kibana-install]
+
+- include: configure.yml
+  tags: [kibana, kibana-configure]

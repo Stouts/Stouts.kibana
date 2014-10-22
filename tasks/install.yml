@@ -1,0 +1,24 @@
+---
+
+- name: kibana-install | Ensure kibana user is exists
+  user: name={{ kibana_user }}
+
+- name: kibana-install | Make kibana home
+  file: path={{kibana_home}} state=directory owner={{kibana_user}} group={{kibana_group}} mode=0755
+
+- name: kibana-install | Download kibana
+  get_url: url=https://download.elasticsearch.org/kibana/kibana/kibana-{{kibana_version}}.tar.gz dest={{kibana_home}}/kibana-{{kibana_version}}.tar.gz
+  when: not kibana_source
+  register: kibana_downloaded
+
+- name: kibana-install | Extract kibana
+  unarchive: src={{kibana_home}}/kibana-{{kibana_version}}.tar.gz dest={{kibana_home}} copy=false creates={{kibana_home}}/kibana-{{kibana_version}}/README.md
+  when: not kibana_source and kibana_downloaded.changed
+
+- name: kibana-install | Link kibana to current version
+  file: src={{kibana_home}}/kibana-{{kibana_version}} dest={{kibana_home}}/www state=link
+  when: not kibana_source
+
+- name: kibana-install | Download kibana from source
+  git: repo=https://github.com/elasticsearch/kibana dest={{kibana_home}}/www
+  when: kibana_source
