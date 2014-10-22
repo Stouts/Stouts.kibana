@@ -7,6 +7,10 @@ server {
     server_name       {{kibana_proxy_hostname}};
     {% endif %}
 
+    location /robots.txt {
+        return 200 "User-agent: *\nDisallow: /";
+    }
+
     location / {
 
         root {{kibana_home}}/www;
