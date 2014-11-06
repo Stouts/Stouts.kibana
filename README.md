@@ -2,8 +2,7 @@ Stouts.kibana
 ==============
 
 [![Build Status](http://img.shields.io/travis/Stouts/Stouts.kibana.svg?style=flat-square)](https://travis-ci.org/Stouts/Stouts.kibana)
-[![Galaxy](http://img.shields.io/badge/galaxy-Stouts.kibana-blue.svg?style=flat-square)](https://galaxy.kibana.com/list#/roles/1986)
-[![Tag](http://img.shields.io/github/tag/Stouts/Stouts.kibana.svg?style=flat-square)]()
+[![Galaxy](http://img.shields.io/badge/galaxy-Stouts.kibana-blue.svg?style=flat-square)](https://galaxy.ansible.com/list#/roles/1986)
 
 Ansible role which manage [Kibana](http://www.elasticsearch.org/overview/kibana/)
 
