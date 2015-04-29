@@ -1,22 +1,11 @@
 ---
 
 - name: kibana-configure | Setup kibana
-  template: src=config.js.j2 dest={{kibana_home}}/www/config.js owner={{kibana_user}} group={{kibana_group}}
+  template: src=kibana.yml.j2 dest={{kibana_home}}/kibana.yml owner={{kibana_user}} group={{kibana_group}}
 
-- name: kibana-configure | Setup passlib
-  apt: pkg=python-passlib
-  when: kibana_proxy_auth
+- name: kibana-configure | Setup service
+  template: src=upstart.conf.j2 dest=/etc/init/kibana.conf
+  notify: kibana restart
 
-- name: kibana-configure | Encrypt http auth passwords
-  htpasswd: path={{kibana_home}}/.htpasswd name={{item.name}} password={{item.password}}
-  with_items: kibana_proxy_auth_users
-  when: kibana_proxy_auth
-
-- name: kibana-configure | Compile Nginx configuration
-  template: src=nginx.conf.j2 dest={{nginx_dir|default('/etc/nginx')}}/sites-available/kibana.conf
-  when: kibana_proxy_nginx
-  notify: [ nginx reload ]
-
-- name: kibana | Enable Nginx site
-  file: src={{nginx_dir|default('/etc/nginx')}}/sites-available/kibana.conf dest={{nginx_dir|default('/etc/nginx')}}/sites-enabled/kibana.conf state=link
-  when: kibana_proxy_nginx
+- name: kibana-configure | Ensure that kibana server is started
+  service: name=kibana state=started enabled=yes

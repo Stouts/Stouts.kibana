@@ -1,4 +1,4 @@
 ---
 
-- name: nginx reload
-  service: name=nginx state=reloaded
+- name: kibana restart
+  service: name=kibana state=restarted
