@@ -10,7 +10,7 @@ respawn
 limit nofile 65536 65536
 console log
 chdir {{kibana_home}}/www
-setuid {{kibana_user}}
+# setuid {{kibana_user}}
 
 env NODE_ENV=production
 
