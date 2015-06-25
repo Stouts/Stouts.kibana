@@ -1,7 +1,7 @@
 ---
 
 kibana_enabled: yes                        # The role is enabled
-kibana_version: 4.0.2                      # Set version
+kibana_version: 4.1.0                      # Set version
 kibana_os_version: linux-x64
 kibana_url: https://download.elastic.co/kibana/kibana/kibana-{{kibana_version}}-{{kibana_os_version}}.tar.gz
 
