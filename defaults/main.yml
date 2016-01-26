@@ -1,7 +1,7 @@
 ---
 
 kibana_enabled: yes                        # The role is enabled
-kibana_version: 4.1.0                      # Set version
+kibana_version: 4.3.1                      # Set version
 kibana_os_version: linux-x64
 kibana_url: https://download.elastic.co/kibana/kibana/kibana-{{kibana_version}}-{{kibana_os_version}}.tar.gz
 
@@ -37,7 +37,7 @@ kibana_elasticsearch_client_key:
 
 # If you need to provide a CA certificate for your Elasticsarech instance, put
 # the path of the pem file here.
-kibana_ca:
+kibana_elasticsearch_ca:
 
 # The default application to load.
 kibana_default_app_id: discover
@@ -60,18 +60,3 @@ kibana_ssl_cert_file:
 
 # Set the path to where you would like the process id file to be created.
 kibana_pid_file: /var/run/kibana.pid
-
-# Plugins that are included in the build, and no longer found in the plugins/ folder
-kibana_bundled_plugin_ids:
- - plugins/dashboard/index
- - plugins/discover/index
- - plugins/doc/index
- - plugins/kibana/index
- - plugins/markdown_vis/index
- - plugins/metric_vis/index
- - plugins/settings/index
- - plugins/table_vis/index
- - plugins/vis_types/index
- - plugins/visualize/index
-
-# vim:sw=2
