@@ -2,3 +2,6 @@
 
 - name: kibana restart
   service: name=kibana state=restarted
+
+- name: nginx reload
+  service: name=nginx state=reloaded

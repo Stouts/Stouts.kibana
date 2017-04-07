@@ -3,8 +3,24 @@
 - name: kibana-configure | Setup kibana
   template: src=kibana.yml.j2 dest={{kibana_home}}/kibana.yml owner={{kibana_user}} group={{kibana_group}}
 
-- name: kibana-configure | Setup service
+- name: kibana-configure | Setup nginx
+  template: src=nginx.conf.j2 dest=/etc/nginx/sites-enabled/kibana.conf owner={{kibana_user}} group={{kibana_group}}
+  when: kibana_nginx
+  notify: nginx reload
+
+- name: kibana-configure | Setup nginx passwords
+  htpasswd: path={{kibana_home}}/.htpasswd name={{item.name}} password={{item.password}}
+  with_items: "{{kibana_nginx_auth_users}}"
+  when: kibana_nginx
+
+- name: kibana-configure | Setup upstart
   template: src=upstart.conf.j2 dest=/etc/init/kibana.conf
+  when: kibana_os_service == 'upstart'
+  notify: kibana restart
+
+- name: kibana-configure | Setup systemd
+  template: src=systemd.service.j2 dest=/etc/systemd/system/kibana.service mode=0755
+  when: kibana_os_service == 'systemd'
   notify: kibana restart
 
 - name: kibana-configure | Ensure that kibana server is started

@@ -1,17 +1,23 @@
 ---
 
 kibana_enabled: yes                        # The role is enabled
-kibana_version: 4.1.0                      # Set version
-kibana_os_version: linux-x64
+kibana_version: 4.6.4                      # Set version
+kibana_os_version: linux-x86_64
 kibana_url: https://download.elastic.co/kibana/kibana/kibana-{{kibana_version}}-{{kibana_os_version}}.tar.gz
+
 
 kibana_home: /var/www/kibana
 kibana_user: www-data
 kibana_group: "{{kibana_user}}"
+# Setup service (upstart|systemd)
+kibana_os_service: systemd
 
 # Kibana is served by a back end server
-kibana_port: 5601
-kibana_host: 0.0.0.0
+kibana_server_port: 5601
+kibana_server_host: 0.0.0.0
+kibana_server_name: "{{inventory_hostname}}"
+kibana_server_max_payload_bytes: 1048576
+kibana_server_base_path: ""
 
 # The Elasticsearch instance to use for all your queries.
 kibana_elasticsearch_url: http://{{inventory_hostname}}:9200
@@ -32,46 +38,39 @@ kibana_elasticsearch_username:
 kibana_elasticsearch_password:
 
 # If your Elasticsearch requires client certificate and key
-kibana_elasticsearch_client_crt:
-kibana_elasticsearch_client_key:
+kibana_elasticsearch_ssl_cert:
+kibana_elasticsearch_ssl_key:
 
-# If you need to provide a CA certificate for your Elasticsarech instance, put
-# the path of the pem file here.
-kibana_ca:
+# Set to false to have a complete disregard for the validity of the SSL
+# certificate.
+kibana_elasticsearch_ssl_verify: true
 
 # The default application to load.
 kibana_default_app_id: discover
 
+# Time in milliseconds to wait for elasticsearch to respond to pings, defaults to
+# request_timeout setting
+kibana_elasticsearch_ping_timeout: 1500
+
 # Time in milliseconds to wait for responses from the back end or elasticsearch.
 # This must be > 0
-kibana_request_timeout: 300000
+kibana_elasticsearch_request_timeout: 300000
 
 # Time in milliseconds for Elasticsearch to wait for responses from shards.
 # Set to 0 to disable.
-kibana_shard_timeout: 0
-
-# Set to false to have a complete disregard for the validity of the SSL
-# certificate.
-kibana_verify_ssl: true
+kibana_elasticsearch_shard_timeout: 0
 
 # SSL for outgoing requests from the Kibana Server (PEM formatted)
-kibana_ssl_key_file:
-kibana_ssl_cert_file:
+kibana_server_ssl_key:
+kibana_server_ssl_cert:
 
 # Set the path to where you would like the process id file to be created.
 kibana_pid_file: /var/run/kibana.pid
 
-# Plugins that are included in the build, and no longer found in the plugins/ folder
-kibana_bundled_plugin_ids:
- - plugins/dashboard/index
- - plugins/discover/index
- - plugins/doc/index
- - plugins/kibana/index
- - plugins/markdown_vis/index
- - plugins/metric_vis/index
- - plugins/settings/index
- - plugins/table_vis/index
- - plugins/vis_types/index
- - plugins/visualize/index
+kibana_nginx: false
+kibana_nginx_auth: false
+kibana_nginx_users: {}
+kibana_nginx_port: 80
+kibana_nginx_servername: "{{inventory_hostname}}"
 
 # vim:sw=2
